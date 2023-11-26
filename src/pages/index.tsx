@@ -208,7 +208,8 @@ export default function Home() {
   
 
   const result3 = formData.quantidade * formData.tipo;
-  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDferramenta * 300 + formData.QTDkm * 90;
+  var result4=0;
+  result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDferramenta * 300 + formData.QTDkm * 90;
   const resultTotal = result3 + result4;
   const valorMaoDeObraAprendiz = resultTotal * 0.30;
 
