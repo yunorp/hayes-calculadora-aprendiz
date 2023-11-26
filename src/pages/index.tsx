@@ -16,6 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import { purple,yellow,green,blue } from '@mui/material/colors';
 import { NextApiResponse } from 'next';
+import Head from 'next/head'
 
 export default function Home() {
 
@@ -266,7 +267,12 @@ export default function Home() {
       
 
   return (
+      
       <main className={styles.main}>
+      <Head>
+        <title>Calculadora Hayes</title>
+        <link rel="icon" href="/hayes.webp" />
+      </Head>
         <div className={styles.containerBox}>
           <div className={styles.box1}>  
             <div className={styles.boxTitulo}>
@@ -426,7 +432,10 @@ export default function Home() {
                 </div>
               </div>   
           </section>             
-        </div>   
+        </div>
+        <footer className={styles.assinatura}>
+          <p>© Feito por Ellyson Alves</p>
+        </footer>
       </main>
   )
 }
