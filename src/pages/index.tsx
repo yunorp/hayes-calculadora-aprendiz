@@ -139,19 +139,22 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result1 = value1 * value2;
-    const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDferramenta * 300 + QTDkm * 90;
-    const result = result1 + result2;
+    const result3 = formData.quantidade * formData.tipo;
+  var result4=0;
+  result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDferramenta * 300 + formData.QTDkm * 90;
+  const resultTotal = result3 + result4;
+  const valorMaoDeObraAprendiz = resultTotal * 0.30;
 
-    // Agora, valorMaoDeObra será 30% do result
-    const valorMaoDeObra = result * 0.30;
-
-    setFormData({
-      ...formData,
-      valorEmpresa: result - valorMaoDeObra, // Valor restante após subtrair valorMaoDeObra
-      valorMaoDeObra: valorMaoDeObra,
-      result: result,
-    });
+  formData.custumizador = vendedor;
+  formData.quantidade = value1;
+  formData.tipo = value2;
+  formData.QTDlockpick = QTDlockpick;
+  formData.QTDferramenta = QTDferramenta;
+  formData.QTDkm = QTDkm;
+  formData.QTDflipper = QTDflipper;
+  formData.result = resultTotal;
+  formData.valorMaoDeObra = valorMaoDeObraAprendiz;
+  formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
     
   
     // Remova as linhas que definem formData.result, formData.tipo e formData.quantidade aqui.
