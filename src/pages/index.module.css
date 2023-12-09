@@ -22,10 +22,13 @@
     
   }
   .main .containerBox{
-    width: 500px;;
+    width: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .main .containerBox > .box1{
-    width: 500px;
+    width: 700px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -39,7 +42,7 @@
     height: auto;
     padding-bottom: 20px;
     display: grid;
-    grid-template-columns: 200px 200px;
+    grid-template-columns: 200px 200px 200px;
     justify-content: center;
     align-items:center;
     background-color: white;
@@ -116,7 +119,7 @@
     width:100%;
     display: flex;
     justify-content: center;
-    grid-column: span 2;
+    grid-column: span 3;
     padding-top: 20px;
   }
   .assinatura{
