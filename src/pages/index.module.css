@@ -123,7 +123,7 @@
     padding-top: 20px;
   }
   .assinatura{
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
     padding-right: 5px;
@@ -147,7 +147,12 @@
     .boxTitulo{
       border-radius: 0;
     }
+    .containerBox{
+      width: 100%!important;
+    }
     .box1{
+        display: flex!important;
+        flex-direction: column!important;
         width: 100%!important;
         border-radius: 0!important;
         height: auto!important;
@@ -156,14 +161,22 @@
         border-radius: 0;
     }
     .boxInputs1{
-        flex-direction: column;
-        align-items: center;
+        width: 100%!important;
+        height: auto!important;
+        display: flex!important;
+        flex-direction: column!important;
+        align-items: center!important;
         padding-top: 10px!important;
         padding-bottom: 10px!important;
     }
     .box2{
         width: 100%!important;     
         border-radius: 0!important;
+        display: flex!important;
+        flex-direction: column!important;
+    }
+    .box2 > div{
+      width: 80%;
     }
     .boxInputs2{
         width: 100%!important;
@@ -181,6 +194,11 @@
     .sectionTotal{
         width: 100%!important;
         display: flex!important;
-        justify-content: center;
+        justify-content: start;
+        position:fixed;
+    }
+    .btnBox{
+      width: 100%;
+      justify-content: flex-end;
     }
   }

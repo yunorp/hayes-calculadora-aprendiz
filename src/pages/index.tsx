@@ -165,7 +165,7 @@ export default function Home() {
     setQTDoleo(Number(e.target.value));
   };
 
-  const handleReparoForaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReparoForaChange = (e: SelectChangeEvent) => {
     setReparoFora(Number(e.target.value));
   };
 
@@ -176,7 +176,7 @@ export default function Home() {
 
   
   
-  const handleQTDkmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQTDkmChange = (e: SelectChangeEvent) => {
     setQTDkm(Number(e.target.value));
   };
 
@@ -587,7 +587,7 @@ export default function Home() {
                           color: blue[500],
                           position: 'relative',
                           bottom: '-5px',
-                          right: '15%',
+                          right: '10%',
                           marginLeft: '-12px',
                         }}
                       />

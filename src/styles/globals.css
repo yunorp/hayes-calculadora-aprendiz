@@ -18,11 +18,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-body {
-
+body > div{
+  width: 95%;
 }
-
 body {
   color: rgb(var(--foreground-rgb));
   background: url(../../public/hayes-bg.png) white;
