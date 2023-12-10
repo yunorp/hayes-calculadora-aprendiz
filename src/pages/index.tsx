@@ -69,7 +69,7 @@ export default function Home() {
     const { name, value } = e.target;
   
     // Verifica se o campo deve ser tratado como número
-    const updatedValue = ['tipo', 'quantidade', 'result', 'QTDlockpick', 'QTDflipper', 'QTDkit', 'QTDkm', 'QTDalicate', 'QTDbateria','QTDoleo','ReparoFora','QTDchave'].includes(name)
+    const updatedValue = ['tipo', 'quantidade', 'result', 'QTDlockpick', 'QTDflipper', 'QTDkit', 'QTDkm', 'QTDalicate', 'QTDbateria','QTDoleo','ReparoFora','QTDchave','QTDpneu'].includes(name)
       ? parseFloat(value)
       : value;
   
@@ -398,13 +398,13 @@ export default function Home() {
                     label="Age"                    
                   >
                     <strong> CARRO </strong> 
-                    <MenuItem value={desgastado === 1 ? 900 : 1500}>D</MenuItem>
+                    <MenuItem value={desgastado === 1 ? 901 : 1501}>D</MenuItem>
                     <MenuItem value={desgastado === 1 ? 1100 : 1700}>C</MenuItem>
                     <MenuItem value={desgastado === 1 ? 1300 : 2300}>B</MenuItem>
                     <MenuItem value={desgastado === 1 ? 1500 : 2700}>A</MenuItem>
                     <MenuItem value={desgastado === 1 ? 1700 : 3200}>S</MenuItem>
                     <strong> MOTO </strong>   
-                    <MenuItem value={desgastado === 1 ? 1000 : 1600}>M</MenuItem>      
+                    <MenuItem value={desgastado === 1 ? 900 : 1500}>M</MenuItem>      
                   </Select>
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '20ch' }}>
