@@ -254,13 +254,14 @@ export default function Home() {
       } else if (response.ok) {
         const content = await response.json();
         console.log(content);
+
+        
         alert('Pedido registrado com sucesso!!');
         setSuccess(true);
-
+        window.location.reload();
         setTimeout(function(){
-          setSuccess(false)// you can pass true to reload function to ignore the client cache and reload from the server
+          setSuccess(false)// you can pass true to reload function to ignore the client cache and reload from the server          
       },2000);
-
       } else {
         // Se a resposta do servidor não for bem-sucedida, trata o erro
         const errorContent = await response.json();
@@ -277,6 +278,8 @@ export default function Home() {
       setError(true);
     } finally {
       setLoading(false);
+
+      
     }
   };
   
@@ -303,6 +306,8 @@ export default function Home() {
   formData.result = resultTotal;
   formData.valorMaoDeObra = valorMaoDeObraAprendiz;
   formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
+
+  
 
       // button loading submit
 
@@ -333,6 +338,8 @@ export default function Home() {
               setError(false);
           
               handleSubmit(event); // Chama a submissão do formulário passando o evento
+
+              
             }
           };
           // termina aqui 
