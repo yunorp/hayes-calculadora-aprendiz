@@ -35,6 +35,8 @@ export default function Home() {
   const [QTDpneu, setQTDpneu] = React.useState<number>(0);
   const [ReparoFora, setReparoFora] = React.useState<number>(0);
   const [QTDkm, setQTDkm] = React.useState<number>(0);
+  const [QTDcinto, setQTDcinto] = React.useState<number>(0);
+  const [QTDdesconto, setQTDdesconto] = React.useState<number>(1);
   const [desgastado, setDesgastado] = React.useState<number>(1);
   React.useEffect(() => {
     setPeçaD(calculatePeçaD(desgastado));
@@ -78,11 +80,14 @@ export default function Home() {
   
   // Movendo os cálculos para dentro da função updateValores
   const result1 = value1 * value2;
-  const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500;
+  const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
   const result = result1 + result2;
   const valorAprendiz = result * 0.35;
   const valorMaquinaAprendiz = result - valorAprendiz;
   const valorMaoAprendiz = result - valorMaquinaAprendiz;
+  // valor com desconto aplicado
+  const resultDesconto = result * QTDdesconto
+  const resultComDesconto = result - resultDesconto;
 
 
 
@@ -113,7 +118,9 @@ export default function Home() {
     QTDbateria: 0,
     QTDpneu: 0,
     ReparoFora: 0,
+    QTDdesconto: 1,
     QTDkm: 0,
+    QTDcinto: 0,
     valorEmpresa: 0,
     valorMaoDeObra: 0,
     result: 0,
@@ -178,7 +185,13 @@ export default function Home() {
     setQTDbateria(Number(e.target.value));
   };
 
+  const handleQTDcintoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQTDcinto(Number(e.target.value));
+  };
 
+  const handleQTDdescontoChange = (e: SelectChangeEvent) => {
+    setQTDdesconto(Number(e.target.value));
+  };
   
   
   const handleQTDkmChange = (e: SelectChangeEvent) => {
@@ -187,11 +200,12 @@ export default function Home() {
 
   const updateValores = (tipo: number, quantidade: number) => {
     const result1 = value1 * formData.tipo;
-    const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000+ ReparoFora * 500 + QTDpneu * 500;
+    const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
     const result = result1 + result2;
-
-    // Agora, valorMaoDeObra será 30% do result
     const valorMaoDeObra = result * 0.35;
+    // valor com desconto aplicado
+    const resultDesconto = result * QTDdesconto;
+    const resultComDesconto = result - resultDesconto;
 
     setFormData({
       ...formData,
@@ -201,30 +215,36 @@ export default function Home() {
     });
   };
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-  const result3 = formData.quantidade * formData.tipo;
-  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500;
-  const resultTotal = result3 + result4;
-  const valorMaoDeObraAprendiz = resultTotal * 0.35;
-
-  formData.custumizador = vendedor;
-  formData.quantidade = value1;
-  formData.tipo = value2;
-  formData.desgastado = desgastado;
-  formData.QTDlockpick = QTDlockpick;
-  formData.QTDkit = QTDkit;
-  formData.QTDalicate= QTDalicate;
-  formData.QTDchave = QTDchave;
-  formData.QTDoleo = QTDoleo;
-  formData.QTDbateria = QTDbateria;
-  formData.ReparoFora = ReparoFora;
-  formData.QTDkm = QTDkm;
-  formData.QTDflipper = QTDflipper;
-  formData.result = resultTotal;
-  formData.valorMaoDeObra = valorMaoDeObraAprendiz;
-  formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
+    const result3 = formData.quantidade * formData.tipo;
+    const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
+    const resultTotal = result3 + result4;
+    const valorMaoDeObraAprendiz = resultTotal * 0.35;
+    // valor com desconto aplicado
+    const resultDesconto1 = resultTotal * formData.QTDdesconto;
+    const resultComDesconto1 = resultTotal - resultDesconto1;
+  
+    formData.custumizador = vendedor;
+    formData.quantidade = value1;
+    formData.tipo = value2;
+    formData.desgastado = desgastado;
+    formData.QTDlockpick = QTDlockpick;
+    formData.QTDkit = QTDkit;
+    formData.QTDalicate= QTDalicate;
+    formData.QTDchave = QTDchave;
+    formData.QTDoleo = QTDoleo;
+    formData.QTDbateria = QTDbateria;
+    formData.QTDpneu = QTDpneu;
+    formData.ReparoFora = ReparoFora;
+    formData.QTDcinto = QTDcinto;
+    formData.QTDkm = QTDkm;
+    formData.QTDflipper = QTDflipper;
+    formData.result = resultTotal;
+    formData.valorMaoDeObra = valorMaoDeObraAprendiz;
+    formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
 
     
   
@@ -285,9 +305,12 @@ export default function Home() {
   
 
   const result3 = formData.quantidade * formData.tipo;
-  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500;
+  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
   const resultTotal = result3 + result4;
   const valorMaoDeObraAprendiz = resultTotal * 0.35;
+  // valor com desconto aplicado
+  const resultDesconto1 = resultTotal * formData.QTDdesconto;
+  const resultComDesconto1 = resultTotal - resultDesconto1;
 
   formData.custumizador = vendedor;
   formData.quantidade = value1;
@@ -301,6 +324,7 @@ export default function Home() {
   formData.QTDbateria = QTDbateria;
   formData.QTDpneu = QTDpneu;
   formData.ReparoFora = ReparoFora;
+  formData.QTDcinto = QTDcinto;
   formData.QTDkm = QTDkm;
   formData.QTDflipper = QTDflipper;
   formData.result = resultTotal;
@@ -548,7 +572,20 @@ export default function Home() {
                   />
                 </FormControl>
 
-                
+                <FormControl sx={{ m: 1, width: '20ch' }}>
+                  <TextField
+                    value={QTDcinto}
+                    onChange={handleQTDcintoChange}
+                    id="filled-number"
+                    label="QTD de cinto de corrida"
+                    name="QTDcinto"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+                </FormControl>
                 
 
                 <FormControl variant='standard' sx={{ m: 1, width: '20ch' }}>
@@ -582,6 +619,25 @@ export default function Home() {
                   >
                     <MenuItem value={1}>Sim</MenuItem>
                     <MenuItem value={0}>Não</MenuItem>      
+                  </Select>
+                </FormControl>
+
+                <FormControl variant='standard' sx={{ m: 1, width: '20ch' }}>
+                  <InputLabel id="demo-simple-select-label">Tem cupom?</InputLabel>
+                  <Select
+                    type='number'
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    onChange={handleQTDdescontoChange}
+                    value={String(QTDdesconto)}
+                    name="desgastado"
+                    label="Quantidade de desconto"                    
+                  >
+                    <MenuItem value={1}>Não tem</MenuItem>      
+                    <MenuItem value={0.10}>10%</MenuItem>
+                    <MenuItem value={0.15}>15%</MenuItem>      
+                    <MenuItem value={0.20}>20%</MenuItem>     
+                    <MenuItem value={0.50}>50%</MenuItem>       
                   </Select>
                 </FormControl>
                   <div className={styles.boxInputs2}>              
@@ -633,6 +689,17 @@ export default function Home() {
                 <div>
                   <p>${result}</p>
                 </div>
+                {resultComDesconto !== 0 &&(
+                  <div>
+                    <div>
+                      <h2>VALOR COM DESCONTO</h2>
+                    </div>
+                    <div>
+                      <p>${resultComDesconto}</p>
+                    </div>
+                  </div>
+                  
+                )}
               </div>   
           </section>             
         </div>
