@@ -23,7 +23,7 @@ export default function Home() {
 
   
 
-  const [value1, setValue1] = React.useState<number>(0);
+  const [value1, setValue1] = React.useState<number>(1);
   const [value2, setValue2] = React.useState<number>(0);
   const [QTDlockpick, setQTDlockpick] = React.useState<number>(0);
   const [QTDflipper, setQTDflipper] = React.useState<number>(0);
@@ -31,8 +31,8 @@ export default function Home() {
   const [QTDchave, setQTDchave] = React.useState<number>(0);
   const [QTDalicate, setQTDalicate] = React.useState<number>(0);
   const [QTDoleo, setQTDoleo] = React.useState<number>(0);
-  const [QTDbateria, setQTDbateria] = React.useState<number>(0);
   const [QTDpneu, setQTDpneu] = React.useState<number>(0);
+  const [QTDbateria, setQTDbateria] = React.useState<number>(0);
   const [ReparoFora, setReparoFora] = React.useState<number>(0);
   const [QTDkm, setQTDkm] = React.useState<number>(0);
   const [QTDcinto, setQTDcinto] = React.useState<number>(0);
@@ -71,7 +71,7 @@ export default function Home() {
     const { name, value } = e.target;
   
     // Verifica se o campo deve ser tratado como número
-    const updatedValue = ['tipo', 'quantidade', 'result', 'QTDlockpick', 'QTDflipper', 'QTDkit', 'QTDkm', 'QTDalicate', 'QTDbateria','QTDoleo','ReparoFora','QTDchave','QTDpneu'].includes(name)
+    const updatedValue = ['tipo', 'quantidade', 'result', 'QTDlockpick', 'QTDflipper', 'QTDkit', 'QTDkm', 'QTDalicate', 'QTDbateria','QTDoleo','ReparoFora','QTDchave'].includes(name)
       ? parseFloat(value)
       : value;
   
@@ -80,7 +80,7 @@ export default function Home() {
   
   // Movendo os cálculos para dentro da função updateValores
   const result1 = value1 * value2;
-  const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
+  const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 3500 + QTDalicate * 1800 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
   const result = result1 + result2;
   const valorAprendiz = result * 0.35;
   const valorMaquinaAprendiz = result - valorAprendiz;
@@ -123,7 +123,8 @@ export default function Home() {
     QTDcinto: 0,
     valorEmpresa: 0,
     valorMaoDeObra: 0,
-    result: 0,   
+    result: 0, 
+    role: 'Aprendiz',
   });
 
   console.log({formData})
@@ -163,6 +164,9 @@ export default function Home() {
   const handleQTDchaveChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQTDchave(Number(e.target.value));
   };
+  const handleQTDpneuChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQTDpneu(Number(e.target.value));
+  };
 
   const handleQTDalicateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQTDalicate(Number(e.target.value));
@@ -170,9 +174,6 @@ export default function Home() {
 
   const handleQTDoleoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQTDoleo(Number(e.target.value));
-  };
-  const handleQTDpneuChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQTDpneu(Number(e.target.value));
   };
 
   const handleReparoForaChange = (e: SelectChangeEvent) => {
@@ -190,7 +191,7 @@ export default function Home() {
   const handleQTDdescontoChange = (e: SelectChangeEvent) => {
     setQTDdesconto(Number(e.target.value));
   };
-  
+
   
   const handleQTDkmChange = (e: SelectChangeEvent) => {
     setQTDkm(Number(e.target.value));
@@ -198,7 +199,7 @@ export default function Home() {
 
   const updateValores = (tipo: number, quantidade: number) => {
     const result1 = value1 * formData.tipo;
-    const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 500 + QTDalicate * 500 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
+    const result2 = QTDlockpick * 600 + QTDflipper * 1500 + QTDkit * 1000 + QTDkm  + QTDbateria * 3500 + QTDalicate * 1800 + QTDoleo * 1000 + QTDchave * 2000 + ReparoFora * 500 + QTDpneu * 500 + QTDcinto * 5000;
     const result = result1 + result2;
     const valorMaoDeObra = result * 0.35;
     // valor com desconto aplicado
@@ -213,36 +214,36 @@ export default function Home() {
     });
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result3 = formData.quantidade * formData.tipo;
-    const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
-    const resultTotal = result3 + result4;
-    const valorMaoDeObraAprendiz = resultTotal * 0.35;
-    // valor com desconto aplicado
-    const resultDesconto1 = resultTotal * formData.QTDdesconto;
-    const resultComDesconto1 = resultTotal - resultDesconto1;
-  
-    formData.custumizador = vendedor;
-    formData.quantidade = value1;
-    formData.tipo = value2;
-    formData.desgastado = desgastado;
-    formData.QTDlockpick = QTDlockpick;
-    formData.QTDkit = QTDkit;
-    formData.QTDalicate= QTDalicate;
-    formData.QTDchave = QTDchave;
-    formData.QTDoleo = QTDoleo;
-    formData.QTDbateria = QTDbateria;
-    formData.QTDpneu = QTDpneu;
-    formData.ReparoFora = ReparoFora;
-    formData.QTDcinto = QTDcinto;
-    formData.QTDkm = QTDkm;
-    formData.QTDflipper = QTDflipper;
-    formData.result = resultTotal;
-    formData.valorMaoDeObra = valorMaoDeObraAprendiz;
-    formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
+  const result3 = formData.quantidade * formData.tipo;
+  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 3500 + formData.QTDalicate * 1800 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
+  const resultTotal = result3 + result4;
+  const valorMaoDeObraAprendiz = resultTotal * 0.35;
+  // valor com desconto aplicado
+  const resultDesconto1 = resultTotal * formData.QTDdesconto;
+  const resultComDesconto1 = resultTotal - resultDesconto1;
+
+  formData.custumizador = vendedor;
+  formData.quantidade = value1;
+  formData.tipo = value2;
+  formData.desgastado = desgastado;
+  formData.QTDlockpick = QTDlockpick;
+  formData.QTDkit = QTDkit;
+  formData.QTDalicate= QTDalicate;
+  formData.QTDchave = QTDchave;
+  formData.QTDoleo = QTDoleo;
+  formData.QTDbateria = QTDbateria;
+  formData.QTDpneu = QTDpneu;
+  formData.ReparoFora = ReparoFora;
+  formData.QTDcinto = QTDcinto;
+  formData.QTDkm = QTDkm;
+  formData.QTDflipper = QTDflipper;
+  formData.result = resultTotal;
+  formData.valorMaoDeObra = valorMaoDeObraAprendiz;
+  formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
+  formData.role = "Aprendiz";
 
     
   
@@ -272,14 +273,13 @@ export default function Home() {
       } else if (response.ok) {
         const content = await response.json();
         console.log(content);
-
-        
         alert('Pedido registrado com sucesso!!');
         setSuccess(true);
         window.location.reload();
         setTimeout(function(){
-          setSuccess(false)// you can pass true to reload function to ignore the client cache and reload from the server          
+          setSuccess(false)// you can pass true to reload function to ignore the client cache and reload from the server
       },2000);
+
       } else {
         // Se a resposta do servidor não for bem-sucedida, trata o erro
         const errorContent = await response.json();
@@ -296,14 +296,12 @@ export default function Home() {
       setError(true);
     } finally {
       setLoading(false);
-
-      
     }
   };
   
 
   const result3 = formData.quantidade * formData.tipo;
-  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 500 + formData.QTDalicate * 500 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
+  const result4 = formData.QTDlockpick * 600 + formData.QTDflipper * 1500 + formData.QTDkit * 1000 + formData.QTDkm + formData.QTDbateria * 3500 + formData.QTDalicate * 1800 + formData.QTDoleo * 1000 + formData.QTDchave * 2000 + formData.ReparoFora * 500 + formData.QTDpneu * 500 + formData.QTDcinto * 5000;
   const resultTotal = result3 + result4;
   const valorMaoDeObraAprendiz = resultTotal * 0.35;
   // valor com desconto aplicado
@@ -328,8 +326,7 @@ export default function Home() {
   formData.result = resultTotal;
   formData.valorMaoDeObra = valorMaoDeObraAprendiz;
   formData.valorEmpresa = resultTotal - valorMaoDeObraAprendiz;
-
-  
+  formData.role = "Aprendiz";
 
       // button loading submit
 
@@ -360,8 +357,6 @@ export default function Home() {
               setError(false);
           
               handleSubmit(event); // Chama a submissão do formulário passando o evento
-
-              
             }
           };
           // termina aqui 
@@ -379,13 +374,13 @@ export default function Home() {
       
       <main className={styles.main}>
       <Head>
-        <title>Calculadora Hayes</title>
+        <title>Calculadora</title>
         <link rel="icon" href="/hayes.webp" />
       </Head>
         <div className={styles.containerBox}>
           <div className={styles.box1}>  
             <div className={styles.boxTitulo}>
-              <h1>Calculadora Hayes  </h1>
+              <h1>Calculadora</h1>
             </div>
             <div className={styles.boxInputs1}>            
               <form className={styles.box2} onSubmit={handleSubmit}>
@@ -400,21 +395,7 @@ export default function Home() {
                           variant="standard"
                         />
                 </FormControl>
-                <FormControl variant='standard' sx={{ m: 1, width: '20ch' }}>
-                  <InputLabel id="demo-simple-select-label">Peças degastadas?</InputLabel>
-                  <Select
-                    type='number'
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    onChange={handleDesgastadoChange}
-                    value={String(desgastado)}
-                    name="desgastado"
-                    label="Peças desgastadas"                    
-                  >
-                    <MenuItem value={0}>Sim</MenuItem>
-                    <MenuItem value={1}>Não</MenuItem>      
-                  </Select>
-                </FormControl>
+
                 <FormControl variant='standard' sx={{ m: 1, width: '20ch' }}>
                   <InputLabel id="demo-simple-select-label">Tipo</InputLabel>
                   <Select
@@ -426,14 +407,15 @@ export default function Home() {
                     name="tipo"
                     label="Age"                    
                   >
-                    <strong> CARRO </strong> 
-                    <MenuItem value={desgastado === 1 ? 901 : 1501}>D</MenuItem>
-                    <MenuItem value={desgastado === 1 ? 1100 : 1700}>C</MenuItem>
-                    <MenuItem value={desgastado === 1 ? 1300 : 2300}>B</MenuItem>
-                    <MenuItem value={desgastado === 1 ? 1500 : 2700}>A</MenuItem>
-                    <MenuItem value={desgastado === 1 ? 1700 : 3200}>S</MenuItem>
+                    <MenuItem value={0}>Nenhum</MenuItem>
+                    <strong> CARRO </strong>                    
+                    <MenuItem value={desgastado === 1 ? 250 : 1500}>D</MenuItem>
+                    <MenuItem value={desgastado === 1 ? 400 : 1700}>C</MenuItem>
+                    <MenuItem value={desgastado === 1 ? 500 : 2300}>B</MenuItem>
+                    <MenuItem value={desgastado === 1 ? 600 : 2700}>A</MenuItem>
+                    <MenuItem value={desgastado === 1 ? 700 : 3200}>S</MenuItem>
                     <strong> MOTO </strong>   
-                    <MenuItem value={desgastado === 1 ? 900 : 1500}>M</MenuItem>      
+                    <MenuItem value={desgastado === 1 ? 650 : 1600}>M</MenuItem>      
                   </Select>
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '20ch' }}>
@@ -442,6 +424,7 @@ export default function Home() {
                       onChange={handleNumero1Change}
                       id="filled-number"
                       label="Quantidade"
+                      
                       name='quantidade'
                       type="number"
                       InputLabelProps={{
@@ -530,7 +513,7 @@ export default function Home() {
                     value={QTDalicate}
                     onChange={handleQTDalicateChange}
                     id="filled-number"
-                    label="QTD Alicate"
+                    label="QTD Cera Simples"
                     name="QTDalicate"
                     type="number"
                     InputLabelProps={{
@@ -545,7 +528,7 @@ export default function Home() {
                     value={QTDbateria}
                     onChange={handleQTDbateriaChange}
                     id="filled-number"
-                    label="QTD Bateria"
+                    label="QTD Cera Profissional"
                     name="QTDbateria"
                     type="number"
                     InputLabelProps={{
@@ -584,6 +567,8 @@ export default function Home() {
                     variant="standard"
                   />
                 </FormControl>
+
+                
                 
 
                 <FormControl variant='standard' sx={{ m: 1, width: '20ch' }}>
@@ -681,12 +666,12 @@ export default function Home() {
           <section className={styles.sectionTotal}>
               <div className={styles.boxTotal}>
                 <div>
-                  <h1>APRENDIZ</h1>
+                  <h1>Aprendiz</h1>
                   <h2>VALOR TOTAL</h2>
                 </div> 
                 <div>
                   <p>${result}</p>
-                </div>
+                </div>              
                 {resultComDesconto !== 0 &&(
                   <div>
                     <div>
@@ -702,7 +687,7 @@ export default function Home() {
           </section>             
         </div>
         <footer className={styles.assinatura}>
-          <p>© Feito por Ellyson Alves</p>
+          <p>© Feito por <a target='_blank' href="https://ellysonalves.github.io/Meu-Portfolio/">Éllyson Alves</a></p>
         </footer>
       </main>
   )
